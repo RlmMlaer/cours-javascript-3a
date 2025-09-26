@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 
 // Interface pour les erreurs
-interface Error {
+export type CustomError = Error & {
   status?: number;
-  message?: string;
 }
 
 // Middleware pour gérer les erreurs
 const errorHandler = (
-  err: Error,
+  err: CustomError,
   req: Request,
   res: Response,
   next: NextFunction
@@ -18,6 +17,8 @@ const errorHandler = (
   // Définir un statut d'erreur par défaut
   const statusCode = err.status || 500;
   const message = err.message || "Internal Server Error";
+
+  //res.status(404).json();
 
   // Envoyer la réponse d'erreur au client
   res.status(statusCode).json({
