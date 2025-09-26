@@ -20,21 +20,21 @@ export function expressAuthentication(
                 jwt.verify(token, 'your_secret_key',
                     function(err: any, decoded: any) {
                         if (scopes !== undefined) {
-                            if (decoded.username === 'admin') {
+                            if (decoded.role === 'admin') {
                                 if (
                                     !scopes.every((s) => adminRights.includes(s)) &&
                                     !scopes.every((s) => adminRights.includes(s.split(':')[0] + ':*'))
                                 ) {
                                     return reject(new Error('Insufficient rights'));
                                 }
-                            } else if (decoded.username === 'gerant') {
+                            } else if (decoded.role === 'gerant') {
                                 if (
                                     !scopes.every((s) => gerantRights.includes(s)) &&
                                     !scopes.every((s) => gerantRights.includes(s.split(':')[0] + ':*'))
                                 ) {
                                     return reject(new Error('Insufficient rights'));
                                 }
-                            } else if (decoded.username === 'user') {
+                            } else if (decoded.role === 'user') {
                                 if (
                                     !scopes.every((s) => userRights.includes(s)) &&
                                     !scopes.every((s) => userRights.includes(s.split(':')[0] + ':*'))

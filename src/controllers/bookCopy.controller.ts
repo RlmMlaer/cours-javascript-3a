@@ -54,6 +54,7 @@ export class BookCopyController extends Controller {
     }
 
     @Patch("{id}")
+    @Security("jwt", ["update:BookCopy"])
     public async updateBookCopy(
         @Path() id: number,
         @Body() requestBody: BookCopyDTO

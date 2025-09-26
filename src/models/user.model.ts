@@ -5,12 +5,14 @@ export interface UserAttributes {
     id?: number
     username: string
     password: string
+    role: number
 }
 
 export class User extends Model<UserAttributes> implements UserAttributes {
     public id!: number
     public username!: string
     public password!: string
+    public role!: number
 }
 
 User.init(
@@ -27,6 +29,11 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        role: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 3,
         }
     },
     {

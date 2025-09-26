@@ -3,7 +3,7 @@ import { Author } from "../models/author.model";
 export class AuthorService {
   // Récupère tous les auteurs
   public async getAllAuthors(): Promise<Author[]> {
-    return Author.findAll();
+    return Author.findAll()
   }
 
   // Récupère un auteur par ID

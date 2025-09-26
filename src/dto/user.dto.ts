@@ -1,5 +1,6 @@
-export interface AuthorDTO {
+export interface UserDTO {
     id?: number
     username: string
     password: string
+    role?: number
 }

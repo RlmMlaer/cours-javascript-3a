@@ -1,6 +1,7 @@
 import { CustomError } from "../middlewares/errorHandler"
 import { User } from "../models/user.model"
 import * as jwt from "jsonwebtoken";
+import { permissionService } from "./permission.service";
 
 export class AuthenticationService {
     public async authenticate(username: string, password: string): Promise<string> {
@@ -10,8 +11,16 @@ export class AuthenticationService {
             error.status = 401
             throw error
         }
+
+        const userPermission = await permissionService.getRoleByPermissionId(user.dataValues.role)
+        if (userPermission == null) {
+            let error: CustomError = new Error("User role not found")
+            error.status = 401
+            throw error
+        }
+
         const token = jwt.sign(
-            { username: user.dataValues.username },
+            { role: userPermission.dataValues.role },
             "your_secret_key",
             { expiresIn: '1h' }
         )
